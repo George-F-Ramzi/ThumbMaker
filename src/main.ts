@@ -120,10 +120,10 @@ ImageBtn.addEventListener("change", () => {
 });
 
 window.addEventListener("keydown", (e) => {
-  if (e.key === "Delete" || e.key === "d") Delete();
-  if (e.key === "b") Box();
-  if (e.key === "c") Circle();
-  if (e.key === "t") Text();
+  if (e.key === "Delete") Delete();
+  if (e.key === "b" && e.ctrlKey) Box();
+  if (e.key === "c" && e.ctrlKey) Circle();
+  if (e.key === "t" && e.ctrlKey) Text();
   if (e.ctrlKey && e.key === "s") {
     e.preventDefault();
     Save();

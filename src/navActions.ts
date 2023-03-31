@@ -32,5 +32,11 @@ export function FillColor(color: string) {
 }
 
 export function Save() {
-  console.log(canvas.toDataURL());
+  let data: string = canvas.toDataURL();
+  let link = document.createElement("a");
+  link.download = "thumbnail.png";
+  link.href = data;
+  document.body.appendChild(link);
+  link.click();
+  document.body.removeChild(link);
 }
