@@ -26,8 +26,8 @@ export function Delete() {
   canvas.getActiveObjects().forEach((obj) => canvas.remove(obj));
 }
 
-export function FillCanvasColor(color: string) {
-  canvas.backgroundColor = color;
+export function FillColor(color: string) {
+  canvas.getActiveObjects().forEach((obj) => obj.set("fill", color));
   canvas.renderAll();
 }
 

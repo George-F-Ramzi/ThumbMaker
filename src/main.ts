@@ -7,7 +7,7 @@ import {
   Box,
   Circle,
   Delete,
-  FillCanvasColor,
+  FillColor,
   Image,
   Save,
   Text,
@@ -69,7 +69,7 @@ let BoxBtn = document.getElementById("box-btn") as HTMLElement;
 let CircleBtn = document.getElementById("circle-btn") as HTMLElement;
 let DeleteBtn = document.getElementById("delete-btn") as HTMLElement;
 let SaveBtn = document.getElementById("save-btn") as HTMLElement;
-let FillCavBtn = document.getElementById("fill-cav-btn") as HTMLInputElement;
+let FillBtn = document.getElementById("fill-btn") as HTMLInputElement;
 let ImageBtn = document.getElementById("image-btn") as HTMLInputElement;
 let DoBtn = document.getElementById("do-btn") as HTMLElement;
 let UndoBtn = document.getElementById("undo-btn") as HTMLElement;
@@ -103,10 +103,10 @@ DoBtn.addEventListener("click", () => {
   if (historyCanvas.redo != null) historyCanvas.redo();
 });
 
-FillCavBtn.addEventListener("input", () => {
-  FillCanvasColor(FillCavBtn.value);
+FillBtn.addEventListener("input", () => {
+  FillColor(FillBtn.value);
   let ui = document.getElementById("fill-ui") as HTMLElement;
-  ui.style.color = FillCavBtn.value;
+  ui.style.color = FillBtn.value;
 });
 
 ImageBtn.addEventListener("change", () => {

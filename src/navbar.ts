@@ -15,7 +15,7 @@ export function NavBar(): string {
     <i id="circle-btn" class="bi-circle mb-6 text-2xl text-white cursor-pointer"></i>
 
     <div class="mb-8 h-[24px] w-[24px] relative">
-        <input id="fill-cav-btn" type="color"  class="absolute h-[24px] w-[24px] z-20 opacity-0 "/>
+        <input id="fill-btn" type="color"  class="absolute h-[24px] w-[24px] z-20 opacity-0 "/>
         <i id="fill-ui" class="bi-square-fill mb-6 text-2xl text-white cursor-pointer"></i>
     </div>
 
