@@ -16,11 +16,13 @@ export function NavBar(): string {
 
     <div class="mb-8 h-[24px] w-[24px] relative">
         <input id="fill-cav-btn" type="color"  class="absolute h-[24px] w-[24px] z-20 opacity-0 "/>
-        <i  class="bi-square-fill mb-6 text-2xl text-white cursor-pointer"></i>
+        <i id="fill-ui" class="bi-square-fill mb-6 text-2xl text-white cursor-pointer"></i>
     </div>
 
     <i id="delete-btn" class="bi-x-square mb-6 text-2xl text-white cursor-pointer"></i>
     <i id="save-btn" class="bi-save mb-6 text-2xl text-white cursor-pointer"></i>
+    <i id="do-btn" class="bi-arrow-clockwise mb-6 text-3xl text-white cursor-pointer"></i>
+    <i id="undo-btn" class="bi-arrow-counterclockwise mb-6 text-3xl text-white cursor-pointer"></i>
     
   </div>`;
 }

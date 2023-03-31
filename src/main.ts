@@ -2,6 +2,7 @@ import "./style.css";
 import { fabric } from "fabric";
 import { Canvas } from "fabric/fabric-impl";
 import { NavBar } from "./navbar";
+import "fabric-history";
 import {
   Box,
   Circle,
@@ -13,7 +14,7 @@ import {
 } from "./navActions";
 
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
-<div class="h-screen p-32 w-screen relative scrollbar-hide grid justify-items-center content-center bg-slate-950 overflow-scroll ">
+<div class="h-screen p-32 w-screen  scrollbar-hide grid justify-items-center content-center bg-slate-950 overflow-scroll ">
   <div id="canvas-holder">
     <canvas id="canvas"></canvas>
   </div>
@@ -40,6 +41,13 @@ function Scale(vlaue: number): void {
 
 Scale(1);
 
+interface history extends Canvas {
+  undo?: () => void;
+  redo?: () => void;
+}
+
+let historyCanvas: history = canvas;
+
 let TextBtn = document.getElementById("text-btn") as HTMLElement;
 let BoxBtn = document.getElementById("box-btn") as HTMLElement;
 let CircleBtn = document.getElementById("circle-btn") as HTMLElement;
@@ -47,6 +55,8 @@ let DeleteBtn = document.getElementById("delete-btn") as HTMLElement;
 let SaveBtn = document.getElementById("save-btn") as HTMLElement;
 let FillCavBtn = document.getElementById("fill-cav-btn") as HTMLInputElement;
 let ImageBtn = document.getElementById("image-btn") as HTMLInputElement;
+let DoBtn = document.getElementById("do-btn") as HTMLElement;
+let UndoBtn = document.getElementById("undo-btn") as HTMLElement;
 
 TextBtn.addEventListener("click", () => {
   Text();
@@ -68,8 +78,18 @@ SaveBtn.addEventListener("click", () => {
   Save();
 });
 
+UndoBtn.addEventListener("click", () => {
+  if (historyCanvas.undo != null) historyCanvas.undo();
+});
+
+DoBtn.addEventListener("click", () => {
+  if (historyCanvas.redo != null) historyCanvas.redo();
+});
+
 FillCavBtn.addEventListener("input", () => {
   FillCanvasColor(FillCavBtn.value);
+  let ui = document.getElementById("fill-ui") as HTMLElement;
+  ui.style.color = FillCavBtn.value;
 });
 
 ImageBtn.addEventListener("change", () => {
@@ -90,6 +110,14 @@ window.addEventListener("keydown", (e) => {
   if (e.ctrlKey && e.key === "s") {
     e.preventDefault();
     Save();
+  }
+  if (e.ctrlKey && e.key === "z") {
+    e.preventDefault();
+    if (historyCanvas.undo != null) historyCanvas.undo();
+  }
+  if (e.ctrlKey && e.key === "u") {
+    e.preventDefault();
+    if (historyCanvas.redo != null) historyCanvas.redo();
   }
 });
 
