@@ -13,25 +13,41 @@ import {
   Text,
 } from "./navActions";
 
+let scale: string = "1";
+
 document.querySelector<HTMLDivElement>("#app")!.innerHTML = `
 <div class="h-screen p-32 w-screen  scrollbar-hide grid justify-items-center content-center bg-slate-950 overflow-scroll ">
   <div id="canvas-holder">
     <canvas id="canvas"></canvas>
   </div>
   ${NavBar()}
+  <div class=" cursor-pointer absolute bottom-12 right-8 flex items-center justify-between p-4 h-[48px] w-[240px] bg-slate-900 border border-gray-500 rounded-md text-white ">
+    <h5 id="scale-ui">${scale}</h5>
+    <i class="bi-arrow-up  text-xl text-white "></i>
+    <select class="w-full h-full absolute -ml-4 opacity-0 text-black" name="scale" id="scale-drop">
+      <option value="0.10">0.10</option>
+      <option value="0.30">0.30</option>
+      <option value="0.50">0.50</option>
+      <option value="0.70">0.70</option>
+      <option value="1">1</option>
+      <option value="1.25">1.25</option>
+      <option value="1.5">1.5</option>
+      <option value="2">2</option>
+    </select>
+  </div>
 </div>
 `;
 
 let canvasHolder = document.getElementById("canvas-holder") as HTMLElement;
 
 let canvas: Canvas = new fabric.Canvas("canvas", {
-  width: 800,
+  width: 1280,
   height: 720,
   backgroundColor: "white",
 });
 
-function Scale(vlaue: number): void {
-  canvasHolder.style.scale = String(vlaue);
+function Scale(vlaue: string): void {
+  canvasHolder.style.scale = vlaue;
   canvasHolder.scrollIntoView({
     behavior: "smooth",
     block: "center",
@@ -39,7 +55,7 @@ function Scale(vlaue: number): void {
   });
 }
 
-Scale(1);
+Scale(scale);
 
 interface history extends Canvas {
   undo?: () => void;
@@ -57,6 +73,7 @@ let FillCavBtn = document.getElementById("fill-cav-btn") as HTMLInputElement;
 let ImageBtn = document.getElementById("image-btn") as HTMLInputElement;
 let DoBtn = document.getElementById("do-btn") as HTMLElement;
 let UndoBtn = document.getElementById("undo-btn") as HTMLElement;
+let scaleSelector = document.getElementById("scale-drop") as HTMLSelectElement;
 
 TextBtn.addEventListener("click", () => {
   Text();
@@ -119,6 +136,13 @@ window.addEventListener("keydown", (e) => {
     e.preventDefault();
     if (historyCanvas.redo != null) historyCanvas.redo();
   }
+});
+
+scaleSelector.addEventListener("input", () => {
+  scale = scaleSelector.value;
+  let ui = document.getElementById("scale-ui") as HTMLElement;
+  ui.innerText = scale;
+  Scale(scale);
 });
 
 export default canvas;
